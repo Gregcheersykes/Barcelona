@@ -34,7 +34,7 @@ async function handleAllergyClick(event) {
         const unsafeDishes = data.map(item => item.dishes.dish_name);
         
         if (unsafeDishes.length === 0) {
-            resultsContainer.innerText = `No unsafe dishes found for ${allergyName}.`;
+            resultsContainer.innerText = `No unsafe items found for ${allergyName}.`;
         } else {
             // Create a title
             const title = document.createElement('h5');
@@ -65,3 +65,20 @@ buttons.forEach(button => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+//Password Prompt 
+
+
+// Password Prompt
+function checkPassword() {
+    const password = prompt("Please enter the administrator password:");
+    
+    if (password === 'hungry4tapas') {
+        window.location.href = 'admin.html';
+    } else if (password !== null) {
+        alert("Incorrect password.");
+    }
+}
+
+// This forces the function to be globally accessible
+window.checkPassword = checkPassword;

@@ -5,18 +5,36 @@ body {
 }
 
 
+.admin-header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Pushes button to the right */
+}
+
+#admin-btn {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 0.85em;
+}
+
+h1 {
+    font-weight: bold;
+    color: white;
+    margin-top: 10px; /* ADDS SPACE ABOVE THE TITLE */
+}
+
 
 body {
     background-color: #1e293b;
     display: flex;
     flex-direction: column;
     align-items: center;
-
     border: 10px solid white;
     min-height: 95vh;
     margin: 10px;
     border-radius: 15px;
     padding: 20px;
+    position: relative;
 }
 
 
@@ -31,10 +49,6 @@ p {
 }
 
 
-h1 {
-    font-weight: bold;
-    color: white
-}
 
 
 button { 
