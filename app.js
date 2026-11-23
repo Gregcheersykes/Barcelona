@@ -51,11 +51,14 @@ async function handleAllergyClick(event) {
                 list.appendChild(listItem);
             });
             
-            // Add both to your screen
+            // Makes it visible on the screen by appending the title and list to the results container
             resultsContainer.appendChild(title);
             resultsContainer.appendChild(list);
         }
     }
+    
+    // This makes it scroll down to the results container so the user can see the results immediately
+    resultsContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
 // 5. Attach the listener to your buttons
@@ -65,9 +68,6 @@ buttons.forEach(button => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
-
-//Password Prompt 
-
 
 // Password Prompt
 function checkPassword() {
