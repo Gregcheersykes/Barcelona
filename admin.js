@@ -2,7 +2,6 @@ const supabaseUrl = 'https://xhxdtnkphgzyfxobybfu.supabase.co';
 const supabaseKey = 'sb_publishable_RiNMmiLoRH0SFHO-u1i_FQ_JAkGdtQL';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-
 // Function to load allergens and display them with checkboxes and emojis
 async function loadAllergens() {
     const response = await supabaseClient
@@ -25,34 +24,25 @@ async function loadAllergens() {
         "Allium": "🧄", "Meat": "🥩", "Honey": "🍯", 
     };
 
-    
     for (let i = 0; i < allergens.length; i++) {
         const item = allergens[i];
         
         const div = document.createElement('div');
         div.className = 'col-6 col-md-2 mb-2';        
 
-        const emoji = allergenEmojis[item.allergen_name] 
+        const emoji = allergenEmojis[item.allergen_name] || "🍽️";
 
-
-          div.innerHTML = `
+        div.innerHTML = `
             <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
             <span style="margin-right: 5px;">${emoji}</span>
             <label class="form-check-label text-dark" for="${item.allergen_name}">${item.allergen_name}</label>
         `;
 
-                container.appendChild(div);
-
-            }
-        
-
-
-      
-
+        container.appendChild(div);
+    }
 }
 
 // Function to load dishes along with their associated allergens
-
 async function loadDishes() {
     const { data: dishes, error } = await supabaseClient
         .from('dishes')
@@ -66,33 +56,30 @@ async function loadDishes() {
     console.log(dishes); 
 
     const container = document.getElementById('dish-list');
+    container.innerHTML = ''; // Clear existing rows before loading
 
     for (let i = 0; i < dishes.length; i++) { 
         const dish = dishes[i];
-
         const tr = document.createElement('tr');
 
-        const allergenNames = dish.allergens.map(a => a.allergen_name).join(', ');
+        // Safely map allergens if they exist, otherwise display 'None'
+        const allergenNames = dish.allergens && dish.allergens.length > 0 
+            ? dish.allergens.map(a => a.allergen_name).join(', ') 
+            : 'None';
 
         tr.innerHTML = `
-        <td>${dish.dish_name}</td>
-        <td>${allergenNames}</td>
-        `;
-
-        //Add two buttons here 
-        tr.innerHTML = tr.innerHTML + `
+            <td>${dish.dish_name}</td>
+            <td>${allergenNames}</td>
             <td>
                 <button class="btn btn-sm btn-primary">Edit</button>
                 <button class="btn btn-sm btn-danger">Delete</button>
             </td>
-`;
+        `;
+
         container.appendChild(tr);
     }
 }
 
-// Load dishes when the page loads
-
-
+// Load dishes and allergens when the page loads
 loadDishes();   
 loadAllergens();
-
