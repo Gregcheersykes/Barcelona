@@ -1,60 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrator - Barcelona Allergies App</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
-</head>
-<body>
+<div class="admin-header">
+    <a href="index.html">
+        <button id="admin-btn" class="btn btn-primary mb-2">Back to Main App</button>
+    </a>
+</div>  
 
-    <div class="admin-header">
-        <a href="index.html">
-            <button id="admin-btn" class="btn btn-primary mb-2">Back to Main App</button>
-        </a>
-    </div>  
+<h1>Administrator - Barcelona Allergies App</h1>
 
-    <h1>Administrator - Barcelona Allergies App</h1>
-
-    <div class="container mt-4">
-        <!-- Add/Edit Dish Form -->
-        <div class="card mb-4">
-            <div class="card-header bg-dark text-white fw-bold" id="form-title">Add New Dish</div>            
-            <div class="card-body">
-                <div class="mb-3">
-                    <label class="form-label">Dish Name</label>
-                    <input type="text" id="dish-name-input" class="form-control" placeholder="e.g. Patatas Bravas">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label d-block">Select Allergens</label>
-                    <div id="allergen-checkboxes">
-                        <!-- JavaScript will load checkboxes here -->
-                    </div>
-                </div>
+<div class="container mt-4">
+    <!-- Add/Edit Dish Form -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white fw-bold" id="form-title">Add New Dish</div>            
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">Dish Name</label>
+                <input type="text" id="dish-name-input" class="form-control" placeholder="e.g. Patatas Bravas">
+            </div>
+            <div class="mb-3">
+                <label class="form-label d-block">Select Allergens</label>
                 
-                <button id="save-dish-btn" class="btn btn-success" style="background-color: #28a745 !important; color: white !important; width: auto !important;">Add Dish</button>        </div>
-
-        <!-- Current Menu Table -->
-        <h4 id="h4" class="ps-3">Current Menu</h4>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Dish</th>
-                    <th>Allergens</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="dish-table-body">
-                <!-- JavaScript will load dishes here -->
-            </tbody>
-        </table>
+                <!-- Flexbox container for horizontal layout -->
+                <div id="allergen-checkboxes" class="d-flex flex-wrap gap-3">
+                    <!-- JavaScript will load checkboxes here -->
+                </div>
+            </div>
+            
+            <button id="save-dish-btn" class="btn btn-success" style="background-color: #28a745 !important; color: white !important; width: auto !important;">Add Dish</button>
+        </div>
     </div>
 
-    <!-- Supabase and Admin JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="admin.js">
-    </script>
+    <!-- Current Menu Table -->
+    <h4 id="h4" class="ps-3">Current Menu</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Dish</th>
+                <th>Allergens</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="dish-table-body">
+            <!-- JavaScript will load dishes here -->
+        </tbody>
+    </table>
+</div>
 
-</body>
-</html>
+<!-- Supabase and Admin JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin.js"></script>
