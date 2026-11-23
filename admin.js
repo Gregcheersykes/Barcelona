@@ -2,6 +2,8 @@ const supabaseUrl = 'https://xhxdtnkphgzyfxobybfu.supabase.co';
 const supabaseKey = 'sb_publishable_RiNMmiLoRH0SFHO-u1i_FQ_JAkGdtQL';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
+
+// Function to load allergens and display them with checkboxes and emojis
 async function loadAllergens() {
     const response = await supabaseClient
         .from('allergens')
@@ -16,37 +18,81 @@ async function loadAllergens() {
     }
 
     const container = document.getElementById('allergen-checkboxes');
+
+    const allergenEmojis = {
+        "Sesame": "🌱", "Egg": "🥚", "Soy": "🫘", "Tree Nut": "🌰", 
+        "Shellfish": "🦐", "Seafood": "🐟", "Gluten": "🌾", "Dairy": "🥛", "Nightshade": "🍅",
+        "Allium": "🧄", "Meat": "🥩", "Honey": "🍯", 
+    };
+
     
     for (let i = 0; i < allergens.length; i++) {
         const item = allergens[i];
         
         const div = document.createElement('div');
         div.className = 'col-6 col-md-2 mb-2';        
-        
-        div.innerHTML = `
-            <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
-            <label class="form-check-label text-dark" for="${item.allergen_name}">${item.allergen_name}</label>
-        `;
-        
-        container.appendChild(div);
-
-
-        const allergenEmojis = {
-        "Sesame": "🌱", "Egg": "🥚", "Soy": "🫘", "Tree Nut": "🌰", 
-        "Shellfish": "🦐", "Seafood": "🐟", "Gluten": "🌾", "Dairy": "🥛", "Nightshade": "🍅",
-        "Allium": "🧄", "Meat": "🥩", "Honey": "🍯", 
-    };
-
 
         const emoji = allergenEmojis[item.allergen_name] 
-        div.innerHTML = `
+
+
+          div.innerHTML = `
             <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
             <span style="margin-right: 5px;">${emoji}</span>
             <label class="form-check-label text-dark" for="${item.allergen_name}">${item.allergen_name}</label>
         `;
+
+                container.appendChild(div);
+
             }
+        
+
+
+      
 
 }
 
+// Function to load dishes along with their associated allergens
 
+async function loadDishes() {
+    const { data: dishes, error } = await supabaseClient
+        .from('dishes')
+        .select('dish_name, allergens (allergen_name)');
+
+    if (error) {
+        console.error("Error fetching dishes:", error);
+        return;
+    }
+
+    console.log(dishes); 
+
+    const container = document.getElementById('dish-list');
+
+    for (let i = 0; i < dishes.length; i++) { 
+        const dish = dishes[i];
+
+        const tr = document.createElement('tr');
+
+        const allergenNames = dish.allergens.map(a => a.allergen_name).join(', ');
+
+        tr.innerHTML = `
+        <td>${dish.dish_name}</td>
+        <td>${allergenNames}</td>
+        `;
+
+        //Add two buttons here 
+        tr.innerHTML = tr.innerHTML + `
+            <td>
+                <button class="btn btn-sm btn-primary">Edit</button>
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </td>
+`;
+        container.appendChild(tr);
+    }
+}
+
+// Load dishes when the page loads
+
+
+loadDishes();   
 loadAllergens();
+
