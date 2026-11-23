@@ -21,7 +21,7 @@ async function loadAllergens() {
         const item = allergens[i];
         
         const div = document.createElement('div');
-        div.className = 'col-2 mb-2'; 
+        div.className = 'col-6 col-md-2 mb-2';        
         
         div.innerHTML = `
             <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
