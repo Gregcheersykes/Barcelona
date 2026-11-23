@@ -2,7 +2,6 @@ const supabaseUrl = 'https://xhxdtnkphgzyfxobybfu.supabase.co';
 const supabaseKey = 'sb_publishable_RiNMmiLoRH0SFHO-u1i_FQ_JAkGdtQL';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-
 async function loadAllergens() {
     const response = await supabaseClient
         .from('allergens')
@@ -18,21 +17,36 @@ async function loadAllergens() {
 
     const container = document.getElementById('allergen-checkboxes');
     
-    // Loop through each allergen and create a checkbox for it
     for (let i = 0; i < allergens.length; i++) {
         const item = allergens[i];
         
         const div = document.createElement('div');
-        div.className = 'form-check form-check-inline';
+        div.className = 'col-2 mb-2'; 
         
         div.innerHTML = `
             <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
-            <label class="form-check-label text-white" for="${item.allergen_name}">${item.allergen_name}</label>
+            <label class="form-check-label text-dark" for="${item.allergen_name}">${item.allergen_name}</label>
         `;
         
         container.appendChild(div);
-    }
+
+
+        const allergenEmojis = {
+        "Sesame": "🌱", "Egg": "🥚", "Soy": "🫘", "Tree Nut": "🌰", 
+        "Shellfish": "🦐", "Seafood": "🐟", "Gluten": "🌾", "Dairy": "🥛", "Nightshade": "🍅",
+        "Allium": "🧄", "Meat": "🥩", "Honey": "🍯", 
+    };
+
+
+        const emoji = allergenEmojis[item.allergen_name] 
+        div.innerHTML = `
+            <input class="form-check-input" type="checkbox" value="${item.allergen_name}" id="${item.allergen_name}">
+            <span style="margin-right: 5px;">${emoji}</span>
+            <label class="form-check-label text-dark" for="${item.allergen_name}">${item.allergen_name}</label>
+        `;
+            }
+
 }
 
-// Run the function when the page loads
+
 loadAllergens();
