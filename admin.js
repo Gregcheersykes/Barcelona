@@ -46,7 +46,8 @@ async function loadAllergens() {
 async function loadDishes() {
     const { data: dishes, error } = await supabaseClient
         .from('dishes')
-        .select('dish_name, allergens (allergen_name)');
+        .select('dish_name, allergens (allergen_name)')
+        .order('dish_name', { ascending: true }); // Order dishes by name ascending A-Z
 
     if (error) {
         console.error("Error fetching dishes:", error);
