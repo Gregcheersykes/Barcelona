@@ -188,7 +188,7 @@ function startEdit(dish) {
         cb.checked = selected.includes(cb.value);
     });
 
-    formTitle.textContent = 'Edit Dish/Item';
+    formTitle.textContent = 'Edit Item';
     saveBtn.textContent = 'Update';
     cancelBtn.style.display = '';
 
