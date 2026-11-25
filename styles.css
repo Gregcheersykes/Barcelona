@@ -92,3 +92,19 @@ button:hover {
     padding: 4px 8px;
 }
 
+#cancel-edit-btn {
+    background-color: #6c757d !important;
+    color: white !important;
+    width: auto;
+    min-width: 110px;
+}
+
+#cancel-edit-btn:hover {
+    background-color: #5a6268 !important;
+    color: white !important;
+}
+
+#save-dish-btn {
+    width: auto;
+    min-width: 110px;
+}
