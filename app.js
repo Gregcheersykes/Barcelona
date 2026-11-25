@@ -5,8 +5,8 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // 2. The function that runs when a button is clicked
 async function handleAllergyClick(event) {
-    const buttonText = event.target.innerText;
-    
+    const buttonText = event.target.innerText.replace(/[\p{Emoji}\p{White_Space}]/gu, '').trim();
+        
     // Define what each button should actually search for in the database
     let searchAllergens = [buttonText]; // Default: just search the button name
     
