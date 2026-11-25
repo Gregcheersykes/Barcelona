@@ -86,3 +86,8 @@ button:hover {
     display: none; /* Hides the box initially */
 }
 
+#dish-list .btn {
+    width: 80px;
+    padding: 4px 8px;
+}
+

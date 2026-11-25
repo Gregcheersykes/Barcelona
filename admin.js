@@ -67,7 +67,7 @@ async function loadAllergens() {
         const item = allergens[i];
 
         const div = document.createElement('div');
-        div.className = 'col-6 col-md-2 mb-2';
+        div.className = 'col-6 col-md-2 mb-2 d-flex align-items-center gap-1';
 
         const emoji = allergenEmojis[item.allergen_name] || "🍽️";
 
