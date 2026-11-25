@@ -48,16 +48,20 @@ async function handleAllergyClick(event) {
         } else {
             // Create a title
             const title = document.createElement('h5');
-            title.innerText = `Cross off or modify the following items for ${buttonText}:`;
+            title.innerText = `Cross off or modify the following items on the menu for ${buttonText}:`;
             title.style.marginBottom = '10px';
             
-        // Create the list
+       // Create the list
             const list = document.createElement('ul');
             list.style.paddingLeft = '20px';
             list.style.listStyle = 'none'; // Removes the default bullet points
             
             unsafeDishes.forEach(dish => {
                 const listItem = document.createElement('li');
+                
+                // Create a label to wrap both the checkbox and text
+                const label = document.createElement('label');
+                label.style.cursor = 'pointer'; // Makes it look clickable
                 
                 // Create the checkbox
                 const checkbox = document.createElement('input');
@@ -77,8 +81,10 @@ async function handleAllergyClick(event) {
                     }
                 });
                 
-                listItem.appendChild(checkbox);
-                listItem.appendChild(textSpan);
+                // Append everything together
+                label.appendChild(checkbox);
+                label.appendChild(textSpan);
+                listItem.appendChild(label);
                 list.appendChild(listItem);
             });
             
