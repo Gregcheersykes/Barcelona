@@ -64,9 +64,10 @@
                     </div>
                 </div>
                 
-                <!-- Button is now correctly inside the card-body -->
-               <div class="d-flex justify-content-start mt-3">
+             <!-- Button is now correctly inside the card-body -->
+<div class="d-flex justify-content-start align-items-center gap-2 mt-3">
     <button id="save-dish-btn" class="btn px-4" style="background-color: #28a745 !important; color: white !important;">Add Item</button>
+    <button id="cancel-edit-btn" class="btn btn-secondary px-4" style="display: none;">Cancel</button>
 </div>
             </div>
         </div>
@@ -91,10 +92,7 @@
 
     
 
-    <div class="d-flex justify-content-start mt-3">
-    <button id="cancel-edit-btn" class="btn btn-secondary px-4 ms-2" style="display: none;">Cancel</button>
-</div>
-
+   
     <!-- Supabase and Admin JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin.js"></script>
