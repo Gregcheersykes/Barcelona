@@ -51,13 +51,34 @@ async function handleAllergyClick(event) {
             title.innerText = `Cross off or modify the following items for ${buttonText}:`;
             title.style.marginBottom = '10px';
             
-            // Create the list
+        // Create the list
             const list = document.createElement('ul');
             list.style.paddingLeft = '20px';
+            list.style.listStyle = 'none'; // Removes the default bullet points
             
             unsafeDishes.forEach(dish => {
                 const listItem = document.createElement('li');
-                listItem.innerText = dish;
+                
+                // Create the checkbox
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.style.marginRight = '10px';
+                
+                // Create a span for the text so we can strike it through
+                const textSpan = document.createElement('span');
+                textSpan.innerText = dish;
+                
+                // Add the event listener for the strikethrough
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        textSpan.style.textDecoration = 'line-through';
+                    } else {
+                        textSpan.style.textDecoration = 'none';
+                    }
+                });
+                
+                listItem.appendChild(checkbox);
+                listItem.appendChild(textSpan);
                 list.appendChild(listItem);
             });
             
