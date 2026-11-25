@@ -11,7 +11,8 @@ body {
     justify-content: flex-end; /* Pushes button to the right */
 }
 
-#admin-btn {
+#admin-btn,
+#logout-btn {
     width: auto;
     padding: 5px 10px;
     font-size: 0.85em;
