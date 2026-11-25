@@ -5,10 +5,20 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // 2. The function that runs when a button is clicked
 async function handleAllergyClick(event) {
-    const allergyName = event.target.innerText;
-    console.log("Fetching dishes for: " + allergyName);
+    const buttonText = event.target.innerText;
+    
+    // Define what each button should actually search for in the database
+    let searchAllergens = [buttonText]; // Default: just search the button name
+    
+    if (buttonText === 'Vegetarian') {
+        searchAllergens = ['Meat'];
+    } else if (buttonText === 'Vegan') {
+        searchAllergens = ['Meat', 'Dairy', 'Egg', 'Seafood', 'Shellfish', 'Honey'];
+    }
+    
+    console.log("Fetching dishes for: " + buttonText);
 
-    // 3. Ask Supabase for the data using your relational schema
+    // 3. Ask Supabase for the data (using .in() to search multiple allergens at once)
     const { data, error } = await supabaseClient
         .from('dish_allergens') 
         .select(`
@@ -19,7 +29,7 @@ async function handleAllergyClick(event) {
                 allergen_name
             )
         `)
-        .eq('allergens.allergen_name', allergyName);
+        .in('allergens.allergen_name', searchAllergens);
 
     // Find the container, clear old results, and make it visible
     const resultsContainer = document.getElementById('results-container');
@@ -30,15 +40,15 @@ async function handleAllergyClick(event) {
         console.error("Error fetching data:", error.message || error);
         resultsContainer.innerText = 'Error fetching data.';
     } else {
-        // 4. Format the data nicely for the screen
-        const unsafeDishes = data.map(item => item.dishes.dish_name);
+        // 4. Format the data nicely for the screen (Remove duplicates using Set)
+        const unsafeDishes = [...new Set(data.map(item => item.dishes.dish_name))];
         
         if (unsafeDishes.length === 0) {
-            resultsContainer.innerText = `No unsafe items found for ${allergyName}.`;
+            resultsContainer.innerText = `No unsafe items found for ${buttonText}.`;
         } else {
             // Create a title
             const title = document.createElement('h5');
-            title.innerText = `Cross off or modify the following items for ${allergyName}:`;
+            title.innerText = `Cross off or modify the following items for ${buttonText}:`;
             title.style.marginBottom = '10px';
             
             // Create the list
@@ -51,13 +61,11 @@ async function handleAllergyClick(event) {
                 list.appendChild(listItem);
             });
             
-            // Makes it visible on the screen by appending the title and list to the results container
             resultsContainer.appendChild(title);
             resultsContainer.appendChild(list);
         }
     }
     
-    // This makes it scroll down to the results container so the user can see the results immediately
     resultsContainer.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -68,4 +76,3 @@ buttons.forEach(button => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
-
