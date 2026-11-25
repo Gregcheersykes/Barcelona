@@ -203,7 +203,7 @@ function resetForm() {
     dishInput.value = '';
     suggestionsContainer.innerHTML = '';
     document.querySelectorAll('#allergen-checkboxes input').forEach(cb => cb.checked = false);
-    formTitle.textContent = 'Add New Dish/Item';
+    formTitle.textContent = 'Add New Item';
     saveBtn.textContent = 'Add Item';
     cancelBtn.style.display = 'none';
 }
