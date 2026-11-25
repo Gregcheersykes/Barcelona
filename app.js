@@ -38,7 +38,7 @@ async function handleAllergyClick(event) {
         } else {
             // Create a title
             const title = document.createElement('h5');
-            title.innerText = `Cross off the following items for ${allergyName}:`;
+            title.innerText = `Cross off or modify the following items for ${allergyName}:`;
             title.style.marginBottom = '10px';
             
             // Create the list
