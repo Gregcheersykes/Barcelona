@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+    <script>
+    const supabaseUrl = 'https://xhxdtnkphgzyfxobybfu.supabase.co';
+    const supabaseKey = 'sb_publishable_RiNMmiLoRH0SFHO-u1i_FQ_JAkGdtQL';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+
     <style>
         * { box-sizing: border-box; }
 
@@ -111,3 +117,27 @@
         <p class="note">Chef & Management Access Only</p>
         <a class="back-link" href="index.html">&larr; Back to Main App</a>
     </div>
+<script> 
+    // If already signed in, skip straight to the admin page
+    supabaseClient.auth.getSession().then(({ data: { session } }) => {
+        if (session) window.location.href = 'admin.html';
+    });
+
+    document.getElementById('google-login-btn').addEventListener('click', async () => {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                // Resolves admin.html relative to this page, so it works in subfolders too
+                redirectTo: new URL('admin.html', window.location.href).href
+            }
+        });
+
+        if (error) {
+            console.error('Google sign-in error:', error);
+            alert('Could not start Google sign-in: ' + error.message);
+        }
+    });</script>
+
+</body>
+</html>
+
