@@ -6,25 +6,55 @@
     <title>Administrator - Barcelona Allergies App</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+
+<style>
+    /* Force the search suggestions to be visible and dark */
+    #suggestions-list .list-group-item {
+        background-color: #212529 !important;
+        color: white !important;
+        border: 1px solid #444 !important;
+    }
+    
+    /* Add a hover effect so the user knows they are clickable */
+    #suggestions-list .list-group-item:hover {
+        background-color: #343a40 !important;
+    }
+
+    @keyframes row-flash {
+    from { background-color: rgba(40, 167, 69, 0.45); }
+    to   { background-color: transparent; }
+    }
+
+    #dish-list tr.row-flash td {
+    animation: row-flash 1.5s ease-out 0.4s backwards;
+    }
+
+</style>
+
 </head>
-<body>
+
+<body style="display: none;">
 
     <div class="admin-header">
+        <button id="logout-btn" class="btn btn-secondary mb-2 me-2">Sign Out</button>
         <a href="index.html">
             <button id="admin-btn" class="btn btn-primary mb-2">Back to Main App</button>
         </a>
-    </div>  
+    </div>
+    
 
     <h1>Administrator - Barcelona Allergies App</h1>
 
     <div class="container mt-4">
         <!-- Add/Edit Dish Form -->
         <div class="card mb-4">
-            <div class="card-header bg-dark text-white fw-bold" id="form-title">Add New Dish</div>            
+            <div class="card-header bg-dark text-white fw-bold" id="form-title">Add New Item</div>            
             <div class="card-body">
                 <div class="mb-3">
-                    <label class="form-label">Dish Name</label>
+                    <label class="form-label">Name</label>
                     <input type="text" id="dish-name-input" class="form-control" placeholder="e.g. Patatas Bravas">
+                    <div id="suggestions-list" class="list-group" style="position: absolute; z-index: 1000; width: 100%;">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label d-block">Select Allergens</label>
@@ -36,7 +66,7 @@
                 
                 <!-- Button is now correctly inside the card-body -->
                <div class="d-flex justify-content-start mt-3">
-    <button id="save-dish-btn" class="btn px-4" style="background-color: #28a745 !important; color: white !important;">Add Dish</button>
+    <button id="save-dish-btn" class="btn px-4" style="background-color: #28a745 !important; color: white !important;">Add Item</button>
 </div>
             </div>
         </div>
@@ -57,9 +87,16 @@
         </table>
     </div>
 
+    <div class="d-flex justify-content-start mt-3">
+    <button id="cancel-edit-btn" class="btn btn-secondary px-4 ms-2" style="display: none;">Cancel</button>
+</div>
+
     <!-- Supabase and Admin JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin.js"></script>
+
+
+
 
 </body>
 </html>
